@@ -19,9 +19,9 @@ fn get_credentials() -> (String, String) {
 fn upload_file(_choice: u8, _file_path: String){
     let mut _url:String = String::new();
     if _choice == 1 {
-        _url = "basketbuild.com".to_string();
+        _url = "basketbuild.com:21".to_string();
     } else {
-        _url = "uploads.androidfilehost.com".to_string();
+        _url = "uploads.androidfilehost.com:21".to_string();
     }
     println!("\nType in your credentials for {}", _url);
     let _credentials: (String, String) = get_credentials();
