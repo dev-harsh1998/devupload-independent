@@ -1,6 +1,8 @@
 extern crate clap;
+extern crate ftp;
 use std::io;
 use clap::{Arg, App};
+use ftp::FtpStream;
 
 fn get_credentials() -> (String, String) {
     println!("Enter your username below: ");
@@ -12,6 +14,23 @@ fn get_credentials() -> (String, String) {
     io::stdin().read_line(&mut pass).expect("No Input!");
     pass = pass.trim().to_string();
     (temp, pass)
+}
+
+fn upload_file(_choice: u8, _file_path: String){
+    let mut _url:String = String::new();
+    if _choice == 1 {
+        _url = "basketbuild.com".to_string();
+    } else {
+        _url = "uploads.androidfilehost.com".to_string();
+    }
+    println!("\nType in your credentials for {}", _url);
+    let _credentials: (String, String) = get_credentials();
+    //
+    // FTP begin
+    //
+    let mut _ftp_stream = FtpStream::connect(_url.as_str()).unwrap();
+    let _ = _ftp_stream.login(_credentials.0.as_str(), _credentials.1.as_str()).unwrap();
+    println!("Current directory: {}", _ftp_stream.pwd().unwrap());
 }
 
 fn main() {
@@ -48,4 +67,5 @@ fn main() {
     } else {
         _dec = 0;
     }
+    upload_file(_dec, _init.value_of("File Path").unwrap().to_string());
 }
