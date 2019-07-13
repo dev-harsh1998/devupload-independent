@@ -2,7 +2,10 @@ extern crate clap;
 extern crate ftp;
 use clap::{App, Arg};
 use ftp::FtpStream;
+use ftp::types::FileType;
 use std::io;
+use std::path::Path;
+use std::fs::File;
 
 fn get_credentials() -> (String, String) {
     println!("Enter your username below: ");
@@ -26,13 +29,22 @@ fn upload_file(_choice: u8, _file_path: String) {
     println!("\nType in your credentials for {}", _url);
     let _credentials: (String, String) = get_credentials();
     //
+    // File handling
+    //
+    let _file_name = Path::new(& _file_path).file_name()
+        .unwrap().to_str().unwrap();
+    let mut file_stream = File::open(&_file_path).unwrap();
+    //
     // FTP begin
     //
     let mut _ftp_stream = FtpStream::connect(_url.as_str()).unwrap();
     let _ = _ftp_stream
         .login(_credentials.0.as_str(), _credentials.1.as_str())
-        .unwrap();
-    println!("Current directory: {}", _ftp_stream.pwd().unwrap());
+        .expect("Couldn't login!");
+    _ftp_stream.transfer_type(FileType::Binary)
+        .expect("Can't set to binary upload mode");
+    let _ = _ftp_stream.put(_file_name, &mut file_stream);
+    let _ = _ftp_stream.quit();
 }
 
 fn main() {
