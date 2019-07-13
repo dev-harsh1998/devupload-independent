@@ -44,7 +44,15 @@ fn upload_file(_choice: u8, _file_path: String) {
         .unwrap_or_else(|err|panic!("Can't login here's the response: {}", err));
     _ftp_stream.transfer_type(FileType::Binary)
         .expect("Can't set to binary upload mode");
-    assert!(_ftp_stream.put(_file_name, &mut file_stream).is_ok());
+    let success = _ftp_stream.put(_file_name, &mut file_stream);
+    let success = match success {
+        Ok(_) => {
+            println!("File has been uploaded successfully");
+        },
+        Err(e) => {
+            println!("There was an error uploading the file {}", e);
+        },
+    };
     let _ = _ftp_stream.quit();
 }
 
