@@ -37,13 +37,14 @@ fn upload_file(_choice: u8, _file_path: String) {
     //
     // FTP begin
     //
-    let mut _ftp_stream = FtpStream::connect(_url.as_str()).unwrap();
+    let mut _ftp_stream = FtpStream::connect(_url.as_str())
+        .unwrap_or_else(|err|panic!("Couldn't connect to remote server err log: {}", err));
     let _ = _ftp_stream
         .login(_credentials.0.as_str(), _credentials.1.as_str())
-        .expect("Couldn't login!");
+        .unwrap_or_else(|err|panic!("Can't login here's the response: {}", err));
     _ftp_stream.transfer_type(FileType::Binary)
         .expect("Can't set to binary upload mode");
-    let _ = _ftp_stream.put(_file_name, &mut file_stream);
+    assert!(_ftp_stream.put(_file_name, &mut file_stream).is_ok());
     let _ = _ftp_stream.quit();
 }
 
@@ -59,7 +60,7 @@ fn main() {
                 .required(true)
                 .multiple(true)
                 .takes_value(true)
-                .help("Specify file path like `devupload -f /path/to/your/file.extention`"),
+                .help("Specify file path like `devupload -a -f path/to/your/file.extention` to trigger afh upload"),
         )
         .arg(
             Arg::with_name("basketbuild")
