@@ -1,4 +1,4 @@
-# Devupload [![Codacy Badge](https://api.codacy.com/project/badge/Grade/73c7910f694b4502bf53e2b905868762)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dev-harsh1998/devupload-independent&amp;utm_campaign=Badge_Grade)
+# Devupload [![Codacy Badge](https://api.codacy.com/project/badge/Grade/73c7910f694b4502bf53e2b905868762)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dev-harsh1998/devupload-independent&amp;utm_campaign=Badge_Grade) [![Codeship Status for dev-harsh1998/devupload-independent](https://app.codeship.com/projects/b40c0f90-87b7-0137-e1fb-6207466b21af/status?branch=master)](https://app.codeship.com/projects/354235)
 
 devupload is a standalone command line utility written in rust to pulverize the ftp uploading procedure to just few inputs i.e username and password, Yep and its done.
 
