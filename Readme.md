@@ -10,6 +10,11 @@ devupload --file-path path/to/file/to/be/uploaded.zip --basketbuild
 Same could be achieved with
 devupload -af path/to/file/to/be/uploaded.zip for androidfilehost
 devupload -bf path/to/file/to/be/uploaded.zip for basketbuild
+
+More?
+
+devupload --help or devupload -h
+devupload --version or devupload -V
 ```
 
 ## Installation
