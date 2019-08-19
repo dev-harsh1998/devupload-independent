@@ -15,6 +15,10 @@ pub fn upload_file(_choice: u8, _file_path: String) {
     }
     println!("\nType in your credentials for {}", _url);
     let _credentials: (String, String) = credential_setup::get_credentials();
+    if _credentials.0 == "-1" && _credentials.1 == "-1"{
+        // We shouldn't be here.
+        panic!("[CRD-DBG]This isn't supposed to happen\n");
+    }
     //
     // File handling
     //

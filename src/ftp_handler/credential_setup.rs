@@ -1,3 +1,5 @@
+use rpassword::read_password;
+use rpassword::read_password_from_tty;
 use std::io;
 
 pub fn get_credentials() -> (String, String) {
@@ -5,9 +7,15 @@ pub fn get_credentials() -> (String, String) {
     let mut temp: String = String::new();
     io::stdin().read_line(&mut temp).expect("No Input!");
     temp = temp.trim().to_string();
-    println!("Enter your password below: ");
-    let mut pass: String = String::new();
-    io::stdin().read_line(&mut pass).expect("No Input!");
-    pass = pass.trim().to_string();
-    (temp, pass)
+    if cfg!(windows) {
+    println!("Enter your password: ");
+    let pass = read_password().unwrap();
+    return (temp, pass);
+    } else if cfg!(unix) {
+    let pass = read_password_from_tty(Some("Password: ")).unwrap();
+    return (temp, pass);
+    } else {
+    //control should never reach here.
+    return ("-1".to_string(), "-1".to_string());
+    }
 }

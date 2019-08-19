@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 clap = "2.26.0"
 ftp = "3.0.1"
+rpassword = "4.0"
