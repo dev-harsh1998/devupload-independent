@@ -39,7 +39,7 @@ pub fn upload_file(_choice: u8, _file_path: String) {
     _ftp_stream.transfer_type(FileType::Binary)
         .expect("Can't set to binary upload mode");
     // Display File size
-    println!("Starting to upload file: {} , with size: {} Megabytes", _file_name, _file_size);
+    println!("\nStarting to upload file: {} , with size: {} Megabytes", _file_name, _file_size);
     let _success = _ftp_stream.put(_file_name, &mut file_stream);
     let _success = match _success {
         Ok(_) => {
