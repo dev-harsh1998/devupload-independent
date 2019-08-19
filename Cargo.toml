@@ -1,6 +1,6 @@
 [package]
 name = "devupload"
-version = "0.1.0"
+version = "1.1.0"
 authors = ["dev-harsh1998 <dev-harsh1998@hotmail.com>"]
 edition = "2018"
 
