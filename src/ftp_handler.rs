@@ -7,12 +7,11 @@ use std::path::Path;
 mod credential_setup;
 
 pub fn upload_file(_choice: u8, _file_path: String) {
-    let mut _url: String = String::new();
-    if _choice == 1 {
-        _url = "basketbuild.com:21".to_string();
+    let _url = if _choice == 1 {
+        "basketbuild.com:21".to_string()
     } else {
-        _url = "uploads.androidfilehost.com:21".to_string();
-    }
+        "uploads.androidfilehost.com:21".to_string()
+    };
     println!("\nType in your credentials for {}", _url);
     let _credentials: (String, String) = credential_setup::get_credentials();
     if _credentials.0 == "-1" || _credentials.1 == "-1" {
@@ -30,13 +29,13 @@ pub fn upload_file(_choice: u8, _file_path: String) {
     let mut file_stream = File::open(&_file_path).unwrap();
     // Compute File Size
     let mut _file_size = metadata(&_file_path);
-    let _file_size: f64 = (_file_size.unwrap().len()) as f64 / 1000000 as f64;
+    let _file_size: f64 = (_file_size.unwrap().len()) as f64 / 1_000_000_f64;
     //
     // FTP begin
     //
     let mut _ftp_stream = FtpStream::connect(_url.as_str())
         .unwrap_or_else(|err| panic!("Couldn't connect to remote server err log: {}", err));
-    let _ = _ftp_stream
+    _ftp_stream
         .login(_credentials.0.as_str(), _credentials.1.as_str())
         .unwrap_or_else(|err| panic!("Can't login here's the response: {}", err));
     _ftp_stream
@@ -48,7 +47,7 @@ pub fn upload_file(_choice: u8, _file_path: String) {
         _file_name, _file_size
     );
     let _success = _ftp_stream.put(_file_name, &mut file_stream);
-    let _success = match _success {
+    match _success {
         Ok(_) => {
             println!("File has been uploaded successfully!");
         }

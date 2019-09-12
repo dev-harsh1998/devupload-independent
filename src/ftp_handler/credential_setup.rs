@@ -10,12 +10,12 @@ pub fn get_credentials() -> (String, String) {
     if cfg!(windows) {
         println!("Enter your password: ");
         let pass = read_password().unwrap();
-        return (temp, pass);
+        (temp, pass)
     } else if cfg!(unix) {
         let pass = read_password_from_tty(Some("Password: ")).unwrap();
-        return (temp, pass);
+        (temp, pass)
     } else {
         //control should never reach here.
-        return ("-1".to_string(), "-1".to_string());
+        ("-1".to_string(), "-1".to_string())
     }
 }
